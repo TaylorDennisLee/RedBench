@@ -115,8 +115,8 @@
 
                 // camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
                 // camera = new THREE.OrthographicCamera(300,300,300,300,300,300);
-                camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 500, 1000 );
-                camera.position.z = 200;
+                camera = new THREE.OrthographicCamera( window.innerWidth / - 10, window.innerWidth / 10, window.innerHeight / 10, window.innerHeight / - 10, - 500, 1000 );
+                camera.position.z = 100;
 
                 controls = new THREE.OrbitControls( camera, renderer.domElement );
                 //controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
@@ -158,11 +158,19 @@
                 // scene.add( mesh );
 
 
+                // Draw Helpers
+
+                var axes = new THREE.AxisHelper(300);
+                scene.add(axes);
+
+
+
+
                 // Draw Line
 
                 var material = new THREE.LineBasicMaterial({
-                    color: 0x000000,
-                    linewidth: 2
+                    color: 0xff0000,
+                    linewidth: 200
                 });
 
                 var geometry = new THREE.Geometry();
@@ -176,6 +184,12 @@
 
 
                 scene.add(line);
+
+
+                // Gird Helper
+                var grid = new THREE.GridHelper( 100, 10 );
+                grid.rotation.x = Math.PI / 2;
+                scene.add(grid);
 
 
 
@@ -227,7 +241,7 @@
                 stats = new Stats();
                 stats.domElement.style.position = 'absolute';
                 stats.domElement.style.top = '0px';
-                stats.domElement.style.zIndex = 100;
+                stats.domElement.style.zIndex = 50;
                 container.appendChild( stats.domElement );
 
                 //
