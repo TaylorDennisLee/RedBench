@@ -1,5 +1,93 @@
 
 
+            pointsss = [
+            [82.5, 9.5],
+            [49.642, 9.5],
+            [48.557, 9.194],
+            [47.467, 8.905],
+            [46.373, 8.632],
+            [45.275, 8.375],
+            [44.173, 8.134],
+            [43.068, 7.909],
+            [41.96, 7.702],
+            [40.849, 7.51],
+            [39.735, 7.335],
+            [38.618, 7.177],
+            [37.5, 7.035],
+            [36.379, 6.91],
+            [35.257, 6.801],
+            [34.133, 6.709],
+            [33.008, 6.634],
+            [31.882, 6.575],
+            [30.755, 6.534],
+            [29.628, 6.508],
+            [28.5, 6.5],
+            [-28.5, 6.5],
+            [-29.628, 6.508],
+            [-30.755, 6.534],
+            [-31.882, 6.575],
+            [-33.008, 6.634],
+            [-34.133, 6.709],
+            [-35.257, 6.801],
+            [-36.379, 6.91],
+            [-37.5, 7.035],
+            [-38.618, 7.177],
+            [-39.735, 7.335],
+            [-40.849, 7.51],
+            [-41.96, 7.702],
+            [-43.068, 7.909],
+            [-44.173, 8.134],
+            [-45.275, 8.375],
+            [-46.373, 8.632],
+            [-47.467, 8.905],
+            [-48.557, 9.194],
+            [-49.642, 9.5],
+            [-82.5, 9.5],
+            [-82.5, -9.5],
+            [-49.642, -9.5],
+            [-48.557, -9.194],
+            [-47.467, -8.905],
+            [-46.373, -8.632],
+            [-45.275, -8.375],
+            [-44.173, -8.134],
+            [-43.068, -7.909],
+            [-41.96, -7.702],
+            [-40.849, -7.51],
+            [-39.735, -7.335],
+            [-38.618, -7.177],
+            [-37.5, -7.035],
+            [-36.379, -6.91],
+            [-35.257, -6.801],
+            [-34.133, -6.709],
+            [-33.008, -6.634],
+            [-31.882, -6.575],
+            [-30.755, -6.534],
+            [-29.628, -6.508],
+            [-28.5, -6.5],
+            [28.5, -6.5],
+            [29.628, -6.508],
+            [30.755, -6.534],
+            [31.882, -6.575],
+            [33.008, -6.634],
+            [34.133, -6.709],
+            [35.257, -6.801],
+            [36.379, -6.91],
+            [37.5, -7.035],
+            [38.618, -7.177],
+            [39.735, -7.335],
+            [40.849, -7.51],
+            [41.96, -7.702],
+            [43.068, -7.909],
+            [44.173, -8.134],
+            [45.275, -8.375],
+            [46.373, -8.632],
+            [47.467, -8.905],
+            [48.557, -9.194],
+            [49.642, -9.5],
+            [82.5, -9.5],
+            [82.5, 9.5]
+            ];
+
             if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
             var container, stats;
@@ -25,14 +113,16 @@
                 container = document.getElementById( "container" );
                 container.appendChild( renderer.domElement );
 
-                camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
-                camera.position.z = 500;
+                // camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
+                // camera = new THREE.OrthographicCamera(300,300,300,300,300,300);
+                camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 500, 1000 );
+                camera.position.z = 200;
 
                 controls = new THREE.OrbitControls( camera, renderer.domElement );
                 //controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
                 controls.enableDamping = true;
                 controls.dampingFactor = 0.25;
-                controls.enableZoom = false;
+                controls.enableZoom = true;
 
 
                 //Trackball zoom
@@ -68,18 +158,18 @@
                 // scene.add( mesh );
 
 
-
+                // Draw Line
 
                 var material = new THREE.LineBasicMaterial({
                     color: 0x000000,
-                    linewidth: 5
+                    linewidth: 2
                 });
 
                 var geometry = new THREE.Geometry();
-                geometry.vertices.push(new THREE.Vector3(-100, 0, 0));
-                geometry.vertices.push(new THREE.Vector3(0, 100, 0));
-                geometry.vertices.push(new THREE.Vector3(100, 0, 0));
-
+                for ( var i = 0; i < pointsss.length; i ++ ) {
+                    console.log(pointsss[i]);
+                    geometry.vertices.push(new THREE.Vector3(pointsss[i][0], pointsss[i][1], 0.0));
+                }
 
 
                 var line = new THREE.Line(geometry, material);
@@ -89,6 +179,21 @@
 
 
 
+                // Draw Particle
+                var particle_geom = new THREE.Geometry();
+
+                particle_geom.vertices.push(new THREE.Vector3(0.0, 0.0, 0.0));
+
+                particle_material = new THREE.PointsMaterial({
+                  color: 0xFF0000
+                });
+
+                var particle_system = new THREE.Points(
+                    particle_geom,
+                    particle_material
+                    );
+
+                scene.add(particle_system);
 
 
 
@@ -133,7 +238,14 @@
 
             function onWindowResize() {
 
-                camera.aspect = window.innerWidth / window.innerHeight;
+                // camera.aspect = window.innerWidth / window.innerHeight;
+                // camera.updateProjectionMatrix();
+
+                camera.left = window.innerWidth / - 2;
+                camera.right = window.innerWidth / 2;
+                camera.top = window.innerHeight / 2;
+                camera.bottom = window.innerHeight / - 2;
+
                 camera.updateProjectionMatrix();
 
                 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -159,6 +271,7 @@
 
             function render() {
 
+                camera.lookAt( scene.position );
                 renderer.render( scene, camera );
 
             }

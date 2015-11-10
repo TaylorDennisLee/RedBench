@@ -11,5 +11,7 @@ import csv
 
 if __name__ == '__main__':
     reader = csv.reader(open('Coords/DogBoneOutline.txt'),delimiter='\t')
-    for i in reader:
-        print i
+
+    for index, i in enumerate(reader):
+        new_i = [float(j) for j in i]
+        print str(new_i) + ','
