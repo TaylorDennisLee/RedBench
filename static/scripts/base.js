@@ -170,7 +170,7 @@
 
                 var material = new THREE.LineBasicMaterial({
                     color: 0xff0000,
-                    linewidth: 200
+                    linewidth: 5
                 });
 
                 var geometry = new THREE.Geometry();
