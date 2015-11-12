@@ -35,6 +35,8 @@
         <div id="container"></div>
         
         <script src="static/js/three.js"></script>
+        <script src="static/js/jquery-2.1.4.min.js"></script>
+        <script src="static/js/jquery.csv-0.71.js"></script>
 
         <script src="static/js/controls/OrbitControls.js"></script>
         <script src="static/js/controls/TransformControls.js"></script>
@@ -42,6 +44,14 @@
         <script src="static/js/controls/DragControls.js"></script>
 
         <script src="static/js/libs/stats.min.js"></script>
+        <script>
+
+
+        console.log(window.location.pathname);
+        var moose = $.csv.toArrays("static/data/LineList.txt");
+        console.log(moose[0]);
+
+        </script>
         <script src="static/scripts/{{ main_script }}"></script>
 
     </body>

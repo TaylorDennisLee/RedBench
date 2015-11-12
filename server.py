@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import csv
 import sys
 import json
 import socket
@@ -17,6 +18,15 @@ import tornado.web
 
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
+
+def get_coords(filename):
+    out_list = []
+    reader = csv.reader(open(filename))
+    reader.next()
+    for line in reader:
+        print line
+        out_list.append(line)
+    return out_list
 
 class TemplateRendering:
     """
@@ -66,8 +76,9 @@ class RootHandler(tornado.web.RequestHandler):
         self.render("orbit.html")
 
 class BaseHandler(tornado.web.RequestHandler):
+
     def get(self):
-        self.render("base.html", main_script="base.js")
+        self.render("base.html", main_script="base.js", coords=get_coords('Coords/LineList.txt'))
 
 
 class Application(tornado.web.Application):
