@@ -78,7 +78,13 @@ class RootHandler(tornado.web.RequestHandler):
 class BaseHandler(tornado.web.RequestHandler):
 
     def get(self):
-        self.render("base.html", main_script="base.js", coords=get_coords('Coords/LineList.txt'))
+        this_list = []
+        reader = csv.reader(open('static/data/LineList.txt'))
+        reader.next()
+        for i in reader:
+            print [float(j) for j in i]
+            this_list.append([float(j) for j in i])
+        self.render("base.html",csv_out = str(this_list), main_script='base.js')
 
 
 class Application(tornado.web.Application):
