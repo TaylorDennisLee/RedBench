@@ -122,16 +122,16 @@ function init() {
     // });
 
     var line, geometry, this_color, material, color_string;
-    var color_mode_size = 100.0/coords.length;
+    var color_mode_size = 250.0/coords.length;
     for ( var i = 0; i < coords.length; i ++ ) {
 
         var num1 
 
-        color_string = "rgb(" + String(Math.round(i*color_mode_size)) + "%,0%," + String(Math.round(100-i*color_mode_size)) + "%)" 
+        color_string = "hsl("+ String(100+i*color_mode_size)+",100%,50%)" 
 
         this_color = new THREE.Color(color_string );
 
-        material = new THREE.LineBasicMaterial({color: this_color,linewidth: 3});
+        material = new THREE.LineBasicMaterial({color: this_color,linewidth: 5});
 
         geometry = new THREE.Geometry();
         console.log(coords.length);
